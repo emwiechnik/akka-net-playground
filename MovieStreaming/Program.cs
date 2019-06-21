@@ -40,7 +40,7 @@ namespace MovieStreaming
                 Console.WriteLine("Sending another StopMovieMessage");
                 playbackActorRef.Tell(new StopMovieMessage());
 
-                Console.WriteLine();
+                Console.ReadLine();
 
                 MovieStreamingActorSystem.Terminate();
                 Console.WriteLine("Actor System terminating");

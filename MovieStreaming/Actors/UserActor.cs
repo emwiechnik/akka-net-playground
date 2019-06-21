@@ -12,21 +12,24 @@ namespace MovieStreaming.Actors
         {
             Console.WriteLine($"Creating a {GetType().Name}");
 
-            Receive<PlayMovieMessage>(message => HandlePlayMovieMessage(message));
-            Receive<StopMovieMessage>(message => HandleStopMovieMessage(message));
+            Console.WriteLine("Setting initial behaviour to Stopped");
+            Stopped();
         }
 
-        private void HandleStopMovieMessage(StopMovieMessage message)
+        private void Playing()
         {
-            if (_currentlyWatching == null)
-            {
-                Console.WriteLine("Error: cannot stop, because nothing is being played");
-            }
-            else
-            {
-                StopPlayingCurrentMovie();
-            }
+            Receive<StopMovieMessage>(message => StopPlayingCurrentMovie());
+            Receive<PlayMovieMessage>(message => Console.WriteLine("Error: cannot start playing another movie before stopping existing one"));
 
+            Console.WriteLine($"{GetType().Name} has now become Playing");
+        }
+
+        private void Stopped()
+        {
+            Receive<PlayMovieMessage>(message => StartPlayingMovie(message.MovieTitle));
+            Receive<StopMovieMessage>(message => Console.WriteLine("Error: cannot stop, because nothing is being played"));
+
+            Console.WriteLine($"{GetType().Name} has now become Stopped");
         }
 
         private void StopPlayingCurrentMovie()
@@ -34,24 +37,16 @@ namespace MovieStreaming.Actors
             Console.WriteLine($"User has stopped watching {_currentlyWatching}");
 
             _currentlyWatching = null;
-        }
 
-        private void HandlePlayMovieMessage(PlayMovieMessage message)
-        {
-            if (_currentlyWatching != null)
-            {
-                Console.WriteLine("Error: cannot start playing another movie before stopping existing one");
-            }
-            else
-            {
-                StartPlayingMovie(message.MovieTitle);
-            }
+            Become(Stopped);
         }
 
         private void StartPlayingMovie(string movieTitle)
         {
             _currentlyWatching = movieTitle;
             Console.WriteLine($"User is currently watching {_currentlyWatching}");
+
+            Become(Playing);
         }
 
         protected override void PreStart()
