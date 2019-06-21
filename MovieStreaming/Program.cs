@@ -27,8 +27,6 @@ namespace MovieStreaming
 
                 do
                 {
-                    // ShortPause();
-
                     Console.WriteLine();
                     Console.WriteLine("Enter a command and hit enter", Color.DarkGray);
 

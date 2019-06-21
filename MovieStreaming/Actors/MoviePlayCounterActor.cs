@@ -1,18 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Akka.Actor;
+using MovieStreaming.Messages;
 using Console = Colorful.Console;
 
 namespace MovieStreaming.Actors
 {
-    public class PlaybackActor : ReceiveActor
+    public class MoviePlayCounterActor : ReceiveActor
     {
-        public PlaybackActor()
-        {
-            Console.WriteLine($"Creating {GetType().Name}", Color.Orange);
+        private readonly Dictionary<string, int> _moviePlayCounts;
 
-            Context.ActorOf(Props.Create<UserCoordinatorActor>(), "UserCoordinatorActor");
-            Context.ActorOf(Props.Create<PlaybackStatisticsActor>(), "PlaybackStatisticsActor");
+        public MoviePlayCounterActor()
+        {
+            _moviePlayCounts = new Dictionary<string, int>();
+
+            Receive<IncrementPlayCountMessage>(message =>
+            {
+                if (!_moviePlayCounts.ContainsKey(message.MovieTitle))
+                {
+                    _moviePlayCounts.Add(message.MovieTitle, 0);
+                }
+
+                _moviePlayCounts[message.MovieTitle] += 1;
+
+                Console.WriteLine($"The movie '{message.MovieTitle}' has been watched {_moviePlayCounts[message.MovieTitle]} times", Color.Orange);
+            });
         }
 
         protected override void PreStart()
