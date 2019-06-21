@@ -20,25 +20,25 @@ namespace MovieStreaming.Actors
 
         protected override void PreStart()
         {
-            Console.WriteLine("PlaybackActor: PreStart");
+            Console.WriteLine($"{GetType().Name}: PreStart");
             base.PreStart();
         }
 
         protected override void PostStop()
         {
-            Console.WriteLine("PlaybackActor: PostStop");
+            Console.WriteLine($"{GetType().Name}: PostStop");
             base.PostStop();
         }
 
         protected override void PreRestart(Exception reason, object message)
         {
-            Console.WriteLine("PlaybackActor: PreRestart, because: " + reason.Message);
+            Console.WriteLine($"{GetType().Name}: PreRestart, because: " + reason.Message);
             base.PreRestart(reason, message);
         }
 
         protected override void PostRestart(Exception reason)
         {
-            Console.WriteLine("PlaybackActor: PostRestart, because: " + reason.Message);
+            Console.WriteLine($"{GetType().Name}: PostRestart, because: " + reason.Message);
             base.PostRestart(reason);
         }
     }

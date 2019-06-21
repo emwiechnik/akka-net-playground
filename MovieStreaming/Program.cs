@@ -16,18 +16,31 @@ namespace MovieStreaming
             {
                 Console.WriteLine("Actor System created");
 
-                Props playbackActorProps = Props.Create<PlaybackActor>();
+                Props playbackActorProps = Props.Create<UserActor>();
 
-                IActorRef playbackActorRef = MovieStreamingActorSystem.ActorOf(playbackActorProps, "OurPlaybackActor");
-
-                playbackActorRef.Tell(new PlayMovieMessage("Akka.NET: The Movie", 12));
-                playbackActorRef.Tell(new PlayMovieMessage("Partial Recall", 15));
-                playbackActorRef.Tell(new PlayMovieMessage("Boolean Lies", 77));
-                playbackActorRef.Tell(new PlayMovieMessage("Conan the Destroyer", 123));
-
-                playbackActorRef.Tell(PoisonPill.Instance);
+                IActorRef playbackActorRef = MovieStreamingActorSystem.ActorOf(playbackActorProps, "OurUserActor");
 
                 Console.ReadLine();
+
+                Console.WriteLine("Sending a PlayMovieMessage (Conan the Destroyer)");
+                playbackActorRef.Tell(new PlayMovieMessage("Conan the Destroyer", 123));
+
+                Console.ReadLine();
+
+                Console.WriteLine("Sending another PlayMovieMessage (Boolean Lies)");
+                playbackActorRef.Tell(new PlayMovieMessage("Boolean Lies", 77));
+
+                Console.ReadLine();
+
+                Console.WriteLine("Sending a StopMovieMessage");
+                playbackActorRef.Tell(new StopMovieMessage());
+
+                Console.ReadLine();
+
+                Console.WriteLine("Sending another StopMovieMessage");
+                playbackActorRef.Tell(new StopMovieMessage());
+
+                Console.WriteLine();
 
                 MovieStreamingActorSystem.Terminate();
                 Console.WriteLine("Actor System terminating");
