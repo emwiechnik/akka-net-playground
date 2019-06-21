@@ -1,6 +1,5 @@
 ﻿using System;
 using Akka.Actor;
-using Akka.Actor.Internal;
 using MovieStreaming.Actors;
 using MovieStreaming.Messages;
 
@@ -12,6 +11,7 @@ namespace MovieStreaming
 
         static void Main(string[] args)
         {
+
             using (MovieStreamingActorSystem = ActorSystem.Create("MovieStreamingActorSystem"))
             {
                 Console.WriteLine("Actor System created");
