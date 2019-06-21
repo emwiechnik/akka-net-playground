@@ -1,21 +1,12 @@
-﻿using System;
+﻿using Akka.Actor;
+using System;
 using System.Drawing;
-using Akka.Actor;
-using MovieStreaming.Messages;
 using Console = Colorful.Console;
 
 namespace MovieStreaming.Actors
 {
-    public class PlaybackActor : ReceiveActor
+    public class PlaybackStatisticsActor: ReceiveActor
     {
-        public PlaybackActor()
-        {
-            Console.WriteLine($"Creating {GetType().Name}", Color.Orange);
-
-            Context.ActorOf(Props.Create<UserCoordinatorActor>(), "UserCoordinatorActor");
-            Context.ActorOf(Props.Create<PlaybackStatisticsActor>(), "PlaybackStatisticsActor");
-        }
-
         protected override void PreStart()
         {
             Console.WriteLine($"{GetType().Name}: PreStart", Color.Orange);
