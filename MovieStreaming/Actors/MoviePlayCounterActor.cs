@@ -24,7 +24,7 @@ namespace MovieStreaming.Actors
 
                 _moviePlayCounts[message.MovieTitle] += 1;
 
-                Console.WriteLine($"The movie '{message.MovieTitle}' has been watched {_moviePlayCounts[message.MovieTitle]} times", Color.Orange);
+                Console.WriteLine($"The movie '{message.MovieTitle}' has been watched {_moviePlayCounts[message.MovieTitle]} times", Color.Magenta);
             });
         }
 
