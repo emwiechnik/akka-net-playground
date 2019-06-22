@@ -16,7 +16,7 @@ namespace MovieStreaming.Remote
 
             var config = ConfigurationFactory.ParseString(File.ReadAllText("settings.hocon"));
 
-            using (MovieStreamingActorSystem = ActorSystem.Create("MovieStreamingActorRemoteSystem", config))
+            using (MovieStreamingActorSystem = ActorSystem.Create("MovieStreamingActorSystem", config))
             {
                 Console.ReadKey();
                 MovieStreamingActorSystem.Terminate();

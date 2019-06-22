@@ -12,12 +12,13 @@
 		}
 		deployment {
 			/PlaybackActor/PlaybackStatisticsActor {
-				remote = "akka.tcp://MovieStreamingActorRemoteSystem@localhost:8091"
+				remote = "akka.tcp://MovieStreamingActorSystem@localhost:8091"
 			}
 		}
 	}
 
 	remote {
+		# the helios transport kept failing with "Only one usage of each socket address (protocol/network address/port) is normally permitted" so I tried with dot-netty and this worked
 #		helios.tcp {
 #			transport.tcp {
 #				transport-class = "Akka.Remote.Transport.Helios.HeliosTcpTransport, Akka.Remote"

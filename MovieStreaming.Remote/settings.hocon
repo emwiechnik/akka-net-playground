@@ -17,7 +17,7 @@
 #			transport.tcp {
 #				transport-class = "Akka.Remote.Transport.Helios.HeliosTcpTransport, Akka.Remote"
 #				transport-protocol = tcp
-#				port = 28091
+#				port = 8091
 #				hostname = "localhost"
 #			}
 #		}
