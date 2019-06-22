@@ -1,18 +1,37 @@
-﻿using System;
+﻿using Akka.Actor;
+using MovieStreaming.Common.Exceptions;
+using System;
 using System.Drawing;
-using Akka.Actor;
 using Console = Colorful.Console;
 
-namespace MovieStreaming.Actors
+namespace MovieStreaming.Common.Actors
 {
-    public class PlaybackActor : ReceiveActor
+    public class PlaybackStatisticsActor: ReceiveActor
     {
-        public PlaybackActor()
+        public PlaybackStatisticsActor()
         {
-            Console.WriteLine($"Creating {GetType().Name}", Color.Orange);
+            Context.ActorOf<MoviePlayCounterActor>("MoviePlayCounterActor");
+        }
 
-            Context.ActorOf(Props.Create<UserCoordinatorActor>(), "UserCoordinatorActor");
-            Context.ActorOf(Props.Create<PlaybackStatisticsActor>(), "PlaybackStatisticsActor");
+        protected override SupervisorStrategy SupervisorStrategy()
+        {
+            var strategy = new OneForOneStrategy(
+                exception =>
+                {
+                    if (exception is SimulatedCurruptStateException)
+                    {
+                        return Directive.Restart;
+                    }
+
+                    if (exception is SimulatedTerribleMovieException)
+                    {
+                        return Directive.Resume;
+                    }
+
+                    return Directive.Restart;
+                });
+
+            return strategy;
         }
 
         protected override void PreStart()

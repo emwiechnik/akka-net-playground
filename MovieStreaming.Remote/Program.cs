@@ -10,7 +10,7 @@ namespace MovieStreaming.Remote
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Creating MovieStreamingActorSystem in remote", Color.Gray);
+            Console.WriteLine("Creating MovieStreamingActorSystem in remote process", Color.Gray);
 
             MovieStreamingActorSystem = ActorSystem.Create("MovieStreamingActorSystem");
 

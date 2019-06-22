@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Console = Colorful.Console;
 
-namespace MovieStreaming.Actors
+namespace MovieStreaming.Common.Actors
 {
     public class UserCoordinatorActor: ReceiveActor
     {

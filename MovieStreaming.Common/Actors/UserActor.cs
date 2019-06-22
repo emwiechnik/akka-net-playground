@@ -4,7 +4,7 @@ using System.Drawing;
 using Console = Colorful.Console;
 using MovieStreaming.Common.Messages;
 
-namespace MovieStreaming.Actors
+namespace MovieStreaming.Common.Actors
 {
     public class UserActor: ReceiveActor
     {

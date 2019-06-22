@@ -6,7 +6,7 @@ using MovieStreaming.Common.Exceptions;
 using MovieStreaming.Common.Messages;
 using Console = Colorful.Console;
 
-namespace MovieStreaming.Actors
+namespace MovieStreaming.Common.Actors
 {
     public class MoviePlayCounterActor : ReceiveActor
     {
