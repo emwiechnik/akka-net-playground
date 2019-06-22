@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using MovieStreaming.Common.Exceptions;
 using System;
 using System.Drawing;
 using Console = Colorful.Console;
@@ -10,6 +11,27 @@ namespace MovieStreaming.Actors
         public PlaybackStatisticsActor()
         {
             Context.ActorOf<MoviePlayCounterActor>("MoviePlayCounterActor");
+        }
+
+        protected override SupervisorStrategy SupervisorStrategy()
+        {
+            var strategy = new OneForOneStrategy(
+                exception =>
+                {
+                    if (exception is SimulatedCurruptStateException)
+                    {
+                        return Directive.Restart;
+                    }
+
+                    if (exception is SimulatedTerribleMovieException)
+                    {
+                        return Directive.Resume;
+                    }
+
+                    return Directive.Restart;
+                });
+
+            return strategy;
         }
 
         protected override void PreStart()

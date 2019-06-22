@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Akka.Actor;
-using MovieStreaming.Messages;
+using MovieStreaming.Common.Exceptions;
+using MovieStreaming.Common.Messages;
 using Console = Colorful.Console;
 
 namespace MovieStreaming.Actors
@@ -24,7 +25,19 @@ namespace MovieStreaming.Actors
 
                 _moviePlayCounts[message.MovieTitle] += 1;
 
-                Console.WriteLine($"The movie '{message.MovieTitle}' has been watched {_moviePlayCounts[message.MovieTitle]} times", Color.Magenta);
+                // simulated bugs
+                if (_moviePlayCounts[message.MovieTitle] > 3)
+                {
+                    throw new SimulatedCurruptStateException();
+                }
+
+                if (message.MovieTitle == "Partial Recoil")
+                {
+                    throw new SimulatedTerribleMovieException();
+                }
+
+
+                Console.WriteLine($"{GetType().Name}: The movie '{message.MovieTitle}' has been watched {_moviePlayCounts[message.MovieTitle]} times", Color.Magenta);
             });
         }
 

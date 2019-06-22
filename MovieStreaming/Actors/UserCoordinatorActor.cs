@@ -1,5 +1,5 @@
 ﻿using Akka.Actor;
-using MovieStreaming.Messages;
+using MovieStreaming.Common.Messages;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

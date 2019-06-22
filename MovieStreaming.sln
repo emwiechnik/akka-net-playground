@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStreaming", "MovieStreaming\MovieStreaming.csproj", "{AEF3FE5B-C81F-4189-85F7-2D66258B2997}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieStreaming", "MovieStreaming\MovieStreaming.csproj", "{AEF3FE5B-C81F-4189-85F7-2D66258B2997}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStreaming.Remote", "MovieStreaming.Remote\MovieStreaming.Remote.csproj", "{A94C3C0B-5168-4563-BF73-C4D3B632C576}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStreaming.Common", "MovieStreaming.Common\MovieStreaming.Common.csproj", "{10E3F8D7-A06B-46A1-A61F-62FE2415C971}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{AEF3FE5B-C81F-4189-85F7-2D66258B2997}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEF3FE5B-C81F-4189-85F7-2D66258B2997}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEF3FE5B-C81F-4189-85F7-2D66258B2997}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A94C3C0B-5168-4563-BF73-C4D3B632C576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A94C3C0B-5168-4563-BF73-C4D3B632C576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A94C3C0B-5168-4563-BF73-C4D3B632C576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A94C3C0B-5168-4563-BF73-C4D3B632C576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E3F8D7-A06B-46A1-A61F-62FE2415C971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E3F8D7-A06B-46A1-A61F-62FE2415C971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E3F8D7-A06B-46A1-A61F-62FE2415C971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E3F8D7-A06B-46A1-A61F-62FE2415C971}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@
 using System.Drawing;
 using Akka.Actor;
 using MovieStreaming.Actors;
-using MovieStreaming.Messages;
+using MovieStreaming.Common.Messages;
 using Console = Colorful.Console;
 
 namespace MovieStreaming
