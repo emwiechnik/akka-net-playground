@@ -16,7 +16,7 @@ namespace MovieStreaming.Common.Actors
         {
             _moviePlayCounts = new Dictionary<string, int>();
 
-            Receive<IncrementPlayCountMessage>(message =>
+            Receive((Action<IncrementPlayCountMessage>)(message =>
             {
                 if (!_moviePlayCounts.ContainsKey(message.MovieTitle))
                 {
@@ -25,20 +25,23 @@ namespace MovieStreaming.Common.Actors
 
                 _moviePlayCounts[message.MovieTitle] += 1;
 
-                // simulated bugs
-                if (_moviePlayCounts[message.MovieTitle] > 3)
-                {
-                    throw new SimulatedCurruptStateException();
-                }
-
-                if (message.MovieTitle == "Partial Recoil")
-                {
-                    throw new SimulatedTerribleMovieException();
-                }
-
+                SimulateBugs(message);
 
                 Console.WriteLine($"{GetType().Name}: The movie '{message.MovieTitle}' has been watched {_moviePlayCounts[message.MovieTitle]} times", Color.Magenta);
-            });
+            }));
+        }
+
+        private void SimulateBugs(IncrementPlayCountMessage message)
+        {
+            if (_moviePlayCounts[message.MovieTitle] > 3)
+            {
+                throw new SimulatedCurruptStateException();
+            }
+
+            if (string.Equals(message.MovieTitle, "InDaHouse", StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new SimulatedTerribleMovieException();
+            }
         }
 
         protected override void PreStart()

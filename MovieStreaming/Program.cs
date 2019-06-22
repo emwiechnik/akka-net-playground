@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
+using System.Threading.Tasks;
 using Akka.Actor;
+using Akka.Configuration;
 using MovieStreaming.Common.Actors;
 using MovieStreaming.Common.Messages;
 using Console = Colorful.Console;
@@ -14,7 +17,10 @@ namespace MovieStreaming
         static void Main(string[] args)
         {
             Console.WriteLine("Creating MovieStreamingActorSystem", Color.Gray);
-            using (MovieStreamingActorSystem = ActorSystem.Create("MovieStreamingActorSystem"))
+
+            var config = ConfigurationFactory.ParseString(File.ReadAllText("settings.hocon"));
+
+            using (MovieStreamingActorSystem = ActorSystem.Create("MovieStreamingActorLocalSystem", config))
             {
                 Console.WriteLine("Actor System created");
 
@@ -23,7 +29,7 @@ namespace MovieStreaming
 
                 MovieStreamingActorSystem.ActorOf(playbackActorProps, "PlaybackActor");
 
-                Console.ReadLine();
+                Task.Delay(TimeSpan.FromSeconds(1)).Wait(); // so that the messages from the system come before the user prompt is displayed
 
                 do
                 {
@@ -56,7 +62,7 @@ namespace MovieStreaming
                         MovieStreamingActorSystem.WhenTerminated.Wait();
                         Console.WriteLine("Actor System terminated", Color.Gray);
                         Console.ReadLine();
-                        Environment.Exit(1);
+                        Environment.Exit(0);
                     }
                 } while (true);
             }
